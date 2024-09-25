@@ -1,0 +1,47 @@
+<!-- <ul>
+  <li *ngFor="let product of products$ | async">
+    {{ product.name }} - {{ product.price }}
+  </li>
+</ul> -->
+
+
+<div class="schedule-container">
+  <h2>Schedule List</h2>
+  
+  <ul>
+    <li *ngFor="let schedule of schedules$ | async">
+      <h3>{{ schedule.staffName }} - {{ schedule.description }}</h3>
+      <p>Type: {{ schedule.schType }}</p>
+      <p>Active: {{ schedule.isActive ? 'Yes' : 'No' }}</p>
+    </li>
+  </ul>
+
+  <button (click)="openAddSchedulePopup()">Add New Schedule</button>
+
+  <!-- Popup Modal -->
+  <div *ngIf="showAddSchedulePopup" class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeAddSchedulePopup()">&times;</span>
+      <h2>Add New Schedule</h2>
+      <form (submit)="onAddSchedule()" #scheduleForm="ngForm">
+        <label for="staffName">Staff Name:</label>
+        <input id="staffName" [(ngModel)]="newSchedule.staffName" name="staffName" required>
+
+        <label for="description">Description:</label>
+        <input id="description" [(ngModel)]="newSchedule.description" name="description" required>
+
+        <label for="schType">Schedule Type (1-4):</label>
+        <input id="schType" [(ngModel)]="newSchedule.schType" name="schType" required type="number" min="1" max="4" #schTypeInput="ngModel">
+        <div *ngIf="schTypeInput.invalid && schTypeInput.touched" class="error">Schedule Type must be between 1 and 4.</div>
+
+        <label for="staffId">Staff ID:</label>
+        <input id="staffId" [(ngModel)]="newSchedule.staffId" name="staffId" required>
+
+        <label for="isActive">Is Active:</label>
+        <input id="isActive" type="checkbox" [(ngModel)]="newSchedule.isActive" name="isActive">
+
+        <button type="submit" [disabled]="scheduleForm.invalid">Add Schedule</button>
+      </form>
+    </div>
+  </div>
+</div>

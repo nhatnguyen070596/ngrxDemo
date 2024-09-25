@@ -1,0 +1,5 @@
+<ul>
+  <li *ngFor="let order of orders$ | async">
+    Order ID: {{ order.id }} - Product ID: {{ order.productId }} - Quantity: {{ order.quantity }}
+  </li>
+</ul>
